@@ -126,7 +126,6 @@ if [ "$1" == "master" ]; then
   clear
 
   echo "Installation Finished!"
-  echo "Please initalize a cluster with the follow command... [sudo kubeadm init --pod-network-cidr=192.168.0.0/16]"
 
 
 else
