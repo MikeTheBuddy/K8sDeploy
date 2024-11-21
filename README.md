@@ -4,7 +4,7 @@ This is always a WIP and may be changed and modified over time
 
 
 
-#Step 0: Before You Begin
+# Step 0: Before You Begin
 Optional: Disable the need for sudo password
 
 Ubuntu, the OS we are using by default, will require a password each time sudo is called.
@@ -29,7 +29,7 @@ Ensure that git is installed on your system by default, in the case of Ubuntu, i
 sudo apt install git
 ```
 
-#Step 1: Setup
+# Step 1: Setup
 
 The next following instructions depend on if it's a worker or master node
 
@@ -43,7 +43,7 @@ For deploying to a worker node, enter the following and reboot
 sudo bash k8sdeploy.sh
 ```
 
-#Step 2: Launch The Cluster
+# Step 2: Launch The Cluster
 
 To initialize the cluster within this setup, run the following
 ```
@@ -59,7 +59,7 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 Please wait for the pods to start up, the coreDNS pods will not start up properly, this is intentional and will be handled later.
 
-#Step 3: Install Networking Layer
+# Step 3: Install Networking Layer
 
 For this cluster, calico will be used for the networking layer. Run the following command to set it up on the master node.
 ```
@@ -68,7 +68,7 @@ sudo bash applycalico.sh
 
 This will use the calico helm chart to handle all of our networking issues regarding the cluster.
 
-#Step 4: Connect Workers To Master Node
+# Step 4: Connect Workers To Master Node
 
 The easiest way to set up the master node to worker nodes on the same network is by first running this command on the master node.
 ```
@@ -81,6 +81,6 @@ With this command, enter it into the worker node with sudo beforehand.
 
 (Make sure a worker node is set up properly beforehand, refer back to step 1 if necessary)
 
-#Step 5: Add GPUs to the cluster
+# Step 5: Add GPUs to the cluster
 
 WIP
