@@ -40,7 +40,7 @@ sudo bash k8sdeploy.sh master
 
 For deploying to a worker node, enter the following and reboot
 ```
-sudo bash k8sdeploy.sh
+sudo bash scripts/k8sdeploy.sh
 ```
 
 # Step 2: Launch The Cluster
@@ -63,7 +63,7 @@ Please wait for the pods to start up, the coreDNS pods will not start up properl
 
 For this cluster, calico will be used for the networking layer. Run the following command to set it up on the master node.
 ```
-sudo bash applycalico.sh
+bash scripts/applycalico.sh
 ```
 
 This will use the calico helm chart to handle all of our networking issues regarding the cluster.
