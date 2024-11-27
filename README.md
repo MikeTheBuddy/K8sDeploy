@@ -83,4 +83,18 @@ With this command, enter it into the worker node with sudo beforehand.
 
 # Step 5: Add GPUs to the cluster
 
-WIP
+For this example, we are assuming we are provided with Nvidia GPUs, so we will be using the Nvidia GPU Operator to give our nodes the ability to use GPUs (Specifically Nvidia)
+
+Running the following command will apply a script that gets the helm chart for the nvidia GPU Operator to our existing cluster
+```
+bash scripts/applynvidia.sh
+```
+
+Nodes should get automatically labeled based on what nvidia GPU is on the node and updated with the number of gpus they can provide.
+
+To see these labels you can run the following command and inspect the output for anything nvidia related.
+```
+kubectl describe nodes 
+```
+
+
