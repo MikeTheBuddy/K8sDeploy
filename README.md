@@ -35,7 +35,7 @@ The next following instructions depend on if it's a worker or master node
 
 To deploy for the master node, enter the following command and reboot
 ```
-sudo bash k8sdeploy.sh master
+sudo bash scripts/k8sdeploy.sh master
 ```
 
 For deploying to a worker node, enter the following and reboot
