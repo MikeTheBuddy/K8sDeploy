@@ -111,7 +111,7 @@ if [ "$1" == "master" ]; then
   # Installs kustomize
   curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
 
-  sudo mv /home/exouser/kustomize /usr/bin/kustomize
+  sudo mv kustomize /usr/bin/kustomize
 
 
   # Installs Knative
