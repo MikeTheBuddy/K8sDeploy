@@ -2,6 +2,8 @@
 
 ### This section installs containerd for us and prepares it for us
 
+VERSION="2.0.4"
+
 echo "Preparing Containerd Config..."
 
 sudo mkdir /etc/containerd
@@ -20,9 +22,11 @@ sudo echo "version = 2
 
 echo "Preparing Containerd Service..."
 
-curl -fLo containerd-1.7.23-linux-amd64.tar.gz https://github.com/containerd/containerd/releases/download/v1.7.23/containerd-1.7.23-linux-amd64.tar.gz
+curl -fLo containerd-$VERSION-linux-amd64.tar.gz https://github.com/containerd/containerd/releases/download/v$VERSION/containerd-$VERSION-linux-amd64.tar.gz
 
-sudo tar Cxzvf /usr/local containerd-1.7.23-linux-amd64.tar.gz
+sudo tar Cxzvf /usr/local containerd-$VERSION-linux-amd64.tar.gz
+
+rm containerd-$VERSION-linux-amd64.tar.gz
 
 sudo curl -fsSLo /etc/systemd/system/containerd.service https://raw.githubusercontent.com/containerd/containerd/main/containerd.service 
 
