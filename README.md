@@ -31,17 +31,38 @@ sudo apt install git
 
 # Step 1: Setup
 
+Download the repository from Github
+
+```
+git clone https://github.com/MikeTheBuddy/K8sDeploy.git
+```
+
+Enter the repository
+
+```
+cd K8sDeploy
+```
+
+
 The next following instructions depend on if it's a worker or master node
 
-To deploy for the master node, enter the following command and reboot
+
+For deploying to a master node, enter the following
+
 ```
-sudo bash scripts/k8sdeploy.sh master
+sudo bash scripts/k8sdeploy.sh --master --reboot
 ```
 
-For deploying to a worker node, enter the following and reboot
+For deploying to a worker node, enter the following
 ```
-sudo bash scripts/k8sdeploy.sh
+sudo bash scripts/k8sdeploy.sh --worker --reboot
 ```
+
+The **--master** flag adds some CLI items to the master node to work with, while the **--worker** flag changes some system flags to allow more files to be opened at a given time.
+
+The **--reboot** flag reboots the machine once the scripts finish.
+
+
 
 # Step 2: Launch The Cluster
 
@@ -49,6 +70,8 @@ To initialize the cluster within this setup, run the following
 ```
 sudo kubeadm init --pod-network-cidr=192.168.0.0/16
 ```
+
+**NOTICE** Do not have the cluster use the same private IP as a device on the network, as this may cause issues of the router becoming confused on where to route requests to.
 
 After initializing a cluster, you are prompted with some additional steps run the following commands as follows.
 ```
@@ -63,7 +86,7 @@ Please wait for the pods to start up, the coreDNS pods will not start up properl
 
 For this cluster, calico will be used for the networking layer. Run the following command to set it up on the master node.
 ```
-bash scripts/applycalico.sh
+bash scripts/k8sdeployments/apply-calico.sh
 ```
 
 This will use the calico helm chart to handle all of our networking issues regarding the cluster.
@@ -87,7 +110,7 @@ For this example, we are assuming we are provided with Nvidia GPUs, so we will b
 
 Running the following command will apply a script that gets the helm chart for the nvidia GPU Operator to our existing cluster
 ```
-bash scripts/applynvidia.sh
+bash scripts/k8sdeployments/apply-nvidia.sh
 ```
 
 Nodes should get automatically labeled based on what nvidia GPU is on the node and updated with the number of gpus they can provide.
@@ -97,4 +120,24 @@ To see these labels you can run the following command and inspect the output for
 kubectl describe nodes 
 ```
 
+# Step 6: Add a storage provisioner to the cluster
 
+Currently, the cluster cannot actually provision persistent volumes (PVs) and satisfy persistent volume claims (PVCs). We will use a default installation of longhorn for now. However, some prep will be required to get longhorn to work on the cluster.
+
+For the worker nodes we would like to have storage provisioned to, run the following command on each of the desired worker nodes.
+```
+bash scripts/k8sdeployments/apply-longhorn-prereq.sh
+```
+
+After this is applied, we need to put the longhorn deployment on the cluster itself
+```
+helm repo add longhorn https://charts.longhorn.io
+helm repo update
+helm install longhorn longhorn/longhorn --namespace longhorn-system --create-namespace --version 1.8.1
+```
+
+After some time, this should apply longhorn to the cluster and serve PVCs that request the longhorn storage type for their PVs.
+
+# Step 7: Add an internal loadbalancer to the cluster itself
+
+Since this is meant to be a baremetal installation, we need to establish our own internal loadbalancer to handle pushing services out from the cluster. TODO

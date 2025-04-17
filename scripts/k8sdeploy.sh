@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the path to the deploy files
-DEPLOYFILE="k8snodeprep"
+DEPLOYFILE=$PWD"/scripts/k8snodeprep"
 
 ### Change the working directory
 if [ -d "$DEPLOYFILE" ]; then
