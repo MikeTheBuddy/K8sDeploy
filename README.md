@@ -50,12 +50,12 @@ The next following instructions depend on if it's a worker or master node
 For deploying to a master node, enter the following
 
 ```
-sudo bash scripts/k8sdeploy.sh --master --reboot
+sudo bash scripts/k8sdeploy.sh --type Master --reboot
 ```
 
 For deploying to a worker node, enter the following
 ```
-sudo bash scripts/k8sdeploy.sh --worker --reboot
+sudo bash scripts/k8sdeploy.sh --type Worker --reboot
 ```
 
 The **--master** flag adds some CLI items to the master node to work with, while the **--worker** flag changes some system flags to allow more files to be opened at a given time.
