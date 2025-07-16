@@ -11,7 +11,7 @@ iscsi_tcp
 dm_crypt
 EOF
 
-sudo modprobe -a iscsi_tcp
+sudo modprobe -a iscsi_tcp dm_crypt
 
 sudo systemctl enable iscsid
 sudo systemctl start iscsid
@@ -27,3 +27,4 @@ sudo systemctl stop multipathd.socket
 # installs nfs-common via apt
 
 sudo apt -y install nfs-common
+
