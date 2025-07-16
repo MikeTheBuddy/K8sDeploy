@@ -58,7 +58,7 @@ For deploying to a worker node, enter the following
 sudo bash scripts/k8sdeploy.sh --type Worker --reboot
 ```
 
-The **--master** flag adds some CLI items to the master node to work with, while the **--worker** flag changes some system flags to allow more files to be opened at a given time.
+The **--type [Master|Worker]** flag is used to define what type of node you'd like to prepare.
 
 The **--reboot** flag reboots the machine once the scripts finish.
 
@@ -72,6 +72,8 @@ sudo kubeadm init --pod-network-cidr=192.168.0.0/16
 ```
 
 **NOTICE** Do not have the cluster use the same private IP as a device on the network, as this may cause issues of the router becoming confused on where to route requests to.
+##### Note: I am unsure if this behavior is actually a problem, but if I ever find a more solid answer, I will update this.
+
 
 After initializing a cluster, you are prompted with some additional steps run the following commands as follows.
 ```

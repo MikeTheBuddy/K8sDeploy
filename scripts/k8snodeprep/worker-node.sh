@@ -9,4 +9,4 @@ sudo sysctl -p
 
 echo "Installation finished!"
 echo "Run the following on the master node and paste the result to the worker nodes: kubeadm token create --print-join-command"
-echo "Please reboot the worker node since there was already a version of containerd on it and a reboot is necessary for the changes to take effect"
+echo "Please reboot the worker node, as I'm unsure if some specific things may need it to take full effect."
