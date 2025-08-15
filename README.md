@@ -96,11 +96,15 @@ This will use the calico helm chart to handle all of our networking issues regar
 # Step 4: Connect Workers To Master Node
 
 The easiest way to set up the master node to worker nodes on the same network is by first running this command on the master node.
+
+For a simple setup without caring about what network card it binds to, do the following:
 ```
 sudo kubeadm token create --print-join-command
 ```
 
 This command will print out the entire command required to connect a worker node to the master node.
+
+If you have multiple network cards and wish to bind it to a particular one, check [here](/scripts/k8stutorialfiles/README.md) for instructions.
 
 With this command, enter it into the worker node with sudo beforehand.
 
